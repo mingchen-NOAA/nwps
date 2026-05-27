@@ -97,17 +97,18 @@ mkdir -p ${NWPSdir}/exec
 
 #FOR NETCDF
 echo "================== FOR NETCDF : make_netcdf-4.2.sh =================="
-cd ${NWPSdir}/lib
-./make_netcdf-4.2.sh | tee ./netcdf-4.2_build.log
 
-export NETCDF=${NWPSdir}/lib/netcdf/${netcdf_ver}
-export NETCDF_ROOT=${NWPSdir}/lib/netcdf/${netcdf_ver}
-export HDF5_ROOT=${NWPSdir}/lib/hdf5/${hdf5_ver}
-export NETCDF_INC=${NWPSdir}/lib/netcdf/${netcdf_ver}/include
-export HDF5_INC=${NWPSdir}/lib/hdf5/${hdf5_ver}/include
-export NETCDF_INCLUDES=${NWPSdir}/lib/netcdf/${netcdf_ver}/include
-export NETCDF_LIBRARIES=${NWPSdir}/lib/netcdf/${netcdf_ver}/lib
-export HDF5_LIBRARIES=${NWPSdir}/lib/hdf5/${hdf5_ver}/lib
+export NETCDF_ROOT=/apps/prod/hpc-stack/intel-19.1.3.304/netcdf/4.7.4
+export NETCDF=${NETCDF_ROOT}
+export NETCDF_INC=${NETCDF_ROOT}/include
+export NETCDF_INCLUDES=${NETCDF_ROOT}/include
+export NETCDF_LIBRARIES=${NETCDF_ROOT}/lib
+
+export HDF5_ROOT=/apps/prod/hpc-stack/intel-19.1.3.304/hdf5/1.10.6
+export HDF5_INC=${HDF5_ROOT}/include
+export HDF5_LIBRARIES=${HDF5_ROOT}/lib
+
+export PATH=${NETCDF_ROOT}/bin:${PATH}
 
 #FOR DEGRIB
 #echo "================== FOR DEGRIB : make_degrib-2.15.sh =================="

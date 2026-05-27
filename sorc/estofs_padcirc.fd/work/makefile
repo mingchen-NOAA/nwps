@@ -100,7 +100,14 @@ ifeq ($(BUILDTYPE),adcprep)
   endif
   ifeq ($(NETCDFen),enable)
     $(warning (INFO) NETCDF activated (4).)
-    LIBS  := -Lodir_metis -lmetis -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+    LIBS := -Lodir_metis -lmetis \
+    $(NETCDF)/lib/libnetcdff.a \
+    $(NETCDF)/lib/libnetcdf.a \
+    $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_hl.a \
+    $(HDF5_ROOT)/lib/libhdf5.a \
+    $(FLIBS)
     $(warning (INFO) LIBS path set to $(LIBS).)
   else
     LIBS  := -Lodir_metis -lmetis $(FLIBS)
@@ -118,7 +125,14 @@ ifeq ($(BUILDTYPE),adcprep_be)
   endif
   ifeq ($(NETCDFen),enable)
     $(warning (INFO) NETCDF activated (5).)
-    LIBS  := -Lodir_metis -lmetis -L$(NETCDF)/lib -lnetcdf $(FLIBS) 
+    LIBS := -Lodir_metis -lmetis \
+    $(NETCDF)/lib/libnetcdff.a \
+    $(NETCDF)/lib/libnetcdf.a \
+    $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_hl.a \
+    $(HDF5_ROOT)/lib/libhdf5.a \
+    $(FLIBS)
   else
     LIBS  := -Lodir_metis_be -lmetis_be $(FLIBS)
   endif
@@ -135,7 +149,14 @@ ifeq ($(BUILDTYPE),adcirc)
   endif
   ifeq ($(NETCDFen),enable)
      $(warning (INFO) NETCDF activated (6).)
-     LIBS  := -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+     LIBS := \
+     $(NETCDF)/lib/libnetcdff.a \
+     $(NETCDF)/lib/libnetcdf.a \
+     $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+     $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+     $(HDF5_ROOT)/lib/libhdf5_hl.a \
+     $(HDF5_ROOT)/lib/libhdf5.a \
+     $(FLIBS)
   endif
   MSG_MOBJ:= $(O_DIR)globalio.o
 endif
@@ -150,7 +171,14 @@ ifeq ($(BUILDTYPE),adcswan)
      FLIBS    :=  -L$(XDMFLIBPATH) -lXdmfCore -lXdmfUtils -lXdmf $(FLIBS)
   endif
   ifeq ($(NETCDFen),enable)
-    LIBS  := -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+     LIBS := \
+     $(NETCDF)/lib/libnetcdff.a \
+     $(NETCDF)/lib/libnetcdf.a \
+     $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+     $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+     $(HDF5_ROOT)/lib/libhdf5_hl.a \
+     $(HDF5_ROOT)/lib/libhdf5.a \
+     $(FLIBS)
   endif
   MSG_MOBJ:= $(O_DIR)globalio.o
 endif
@@ -165,7 +193,14 @@ ifeq ($(BUILDTYPE),$(PARALLEL_ADCIRC))
   endif
   ifeq ($(NETCDFen),enable)
     $(warning (INFO) NETCDF activated (7).)
-    LIBS  := -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+    LIBS := \
+    $(NETCDF)/lib/libnetcdff.a \
+    $(NETCDF)/lib/libnetcdf.a \
+    $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_hl.a \
+    $(HDF5_ROOT)/lib/libhdf5.a \
+    $(FLIBS)
     $(warning (INFO) LIBS path set to $(LIBS).)
   endif
   MSG_MOBJ:= $(O_DIR)messenger.o $(O_DIR)writer.o
@@ -181,7 +216,14 @@ ifeq ($(BUILDTYPE),padcswan)
      FLIBS    :=  -L$(XDMFLIBPATH) -lXdmfCore -lXdmfUtils -lXdmf $(FLIBS)
   endif  
   ifeq ($(NETCDFen),enable)
-    LIBS  := -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+    LIBS := \
+    $(NETCDF)/lib/libnetcdff.a \
+    $(NETCDF)/lib/libnetcdf.a \
+    $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_hl.a \
+    $(HDF5_ROOT)/lib/libhdf5.a \
+    $(FLIBS)
   endif
   MSG_MOBJ:= $(O_DIR)messenger.o $(O_DIR)writer.o
 endif
@@ -191,7 +233,14 @@ ifeq ($(BUILDTYPE),$(LIBADC))
   FFLAGS:= $(FFLAGS3) $(DP) $(IMODS) $(O_DIR)
   VPATH := $(SRCDIR):$(SRCDIR)/src:$(SRCDIR)/KDTREE2:$(SRCDIR)/wind:$(SRCDIR):$(SRCDIR)/prep 
   ifeq ($(NETCDFen),enable)
-    LIBS  := -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+    LIBS := \
+    $(NETCDF)/lib/libnetcdff.a \
+    $(NETCDF)/lib/libnetcdf.a \
+    $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_hl.a \
+    $(HDF5_ROOT)/lib/libhdf5.a \
+    $(FLIBS)
   endif
   MSG_MOBJ:= $(O_DIR)messenger.o $(O_DIR)writer.o
 endif
@@ -257,7 +306,14 @@ ifeq ($(BUILDTYPE),hstime)
   O_DIR:=odir12/
   FFLAGS:= $(FFLAGS2) $(IMODS) $(O_DIR) $(DA)
   ifeq ($(NETCDFen),enable)
-    LIBS  := -L$(NETCDF)/lib -lnetcdf $(FLIBS)
+    LIBS := \
+    $(NETCDF)/lib/libnetcdff.a \
+    $(NETCDF)/lib/libnetcdf.a \
+    $(HDF5_ROOT)/lib/libhdf5hl_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_fortran.a \
+    $(HDF5_ROOT)/lib/libhdf5_hl.a \
+    $(HDF5_ROOT)/lib/libhdf5.a \
+    $(FLIBS)
   endif
   VPATH :=  $(SRCDIR)/util
   MSG_MOBJ:=

@@ -48,7 +48,14 @@ ifeq ($(compiler),ncep)
   HDF5HOME      :=${HDF5_ROOT}
 #  ZHOME         :=
   ifeq ($(NETCDFen),enable)
-     FLIBS          := $(FLIBS) -L${NETCDFHOME}/lib -lnetcdff -lnetcdf -L$(HDF5HOME)/lib -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran $(Z_LIB)
+     FLIBS := $(FLIBS) \
+     ${NETCDFHOME}/lib/libnetcdff.a \
+     ${NETCDFHOME}/lib/libnetcdf.a \
+     $(HDF5HOME)/lib/libhdf5hl_fortran.a \
+     $(HDF5HOME)/lib/libhdf5_fortran.a \
+     $(HDF5HOME)/lib/libhdf5_hl.a \
+     $(HDF5HOME)/lib/libhdf5.a \
+     $(Z_LIB)
   endif
   $(warning (INFO) Corresponding machine found in cmplrflags.mk.)
   ifneq ($(FOUND),TRUE)

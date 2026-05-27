@@ -30,9 +30,11 @@ if ($os =~ /Linux/i) {
     print OUTFILE "  INCS_SER = -I\$(NETCDF_INCLUDES) \n";
     print OUTFILE "  INCS_OMP = -I\$(NETCDF_INCLUDES) \n";
     print OUTFILE "  INCS_MPI = -I\$(NETCDF_INCLUDES) \n";
-    print OUTFILE "  LIBS_SER = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
-    print OUTFILE "  LIBS_OMP = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
-    print OUTFILE "  LIBS_MPI = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
+
+    print OUTFILE "  LIBS_SER = \$(NETCDF_LIBRARIES)/libnetcdff.a \$(NETCDF_LIBRARIES)/libnetcdf.a \$(HDF5_LIBRARIES)/libhdf5hl_fortran.a \$(HDF5_LIBRARIES)/libhdf5_fortran.a \$(HDF5_LIBRARIES)/libhdf5_hl.a \$(HDF5_LIBRARIES)/libhdf5.a \$(Z_LIB)\n";
+    print OUTFILE "  LIBS_OMP = \$(NETCDF_LIBRARIES)/libnetcdff.a \$(NETCDF_LIBRARIES)/libnetcdf.a \$(HDF5_LIBRARIES)/libhdf5hl_fortran.a \$(HDF5_LIBRARIES)/libhdf5_fortran.a \$(HDF5_LIBRARIES)/libhdf5_hl.a \$(HDF5_LIBRARIES)/libhdf5.a \$(Z_LIB)\n";
+    print OUTFILE "  LIBS_MPI = \$(NETCDF_LIBRARIES)/libnetcdff.a \$(NETCDF_LIBRARIES)/libnetcdf.a \$(HDF5_LIBRARIES)/libhdf5hl_fortran.a \$(HDF5_LIBRARIES)/libhdf5_fortran.a \$(HDF5_LIBRARIES)/libhdf5_hl.a \$(HDF5_LIBRARIES)/libhdf5.a \$(Z_LIB)\n";
+
     print OUTFILE "  NCF_OBJS = nctablemd.o agioncmd.o swn_outnc.o\n";
     print OUTFILE "else\n";
     print OUTFILE "  INCS_SER =\n";
