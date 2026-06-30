@@ -191,23 +191,23 @@ fi
 
 #FOR PSURGE2NWPS
 #The following will generate the executables: psurge2nwps_64, psurge_identify.exe and  psoutTOnwps.exe.
-echo "================== FOR PSURGE2NWPS : make_psurge2nwps.sh =================="
-./make_psurge2nwps.sh
-rc=$?
-if [[ $rc -ne 0 ]] ; then
-    echo "Fatal error in building psurge2nwps."
-    echo "Various log files are in sorc/psurge2nwps.cd/"
-fi
+#echo "================== FOR PSURGE2NWPS : make_psurge2nwps.sh =================="
+#./make_psurge2nwps.sh
+#rc=$?
+#if [[ $rc -ne 0 ]] ; then
+#    echo "Fatal error in building psurge2nwps."
+#    echo "Various log files are in sorc/psurge2nwps.cd/"
+#fi
 
 #FOR UTILITY PROGRAMS
-echo "================== FOR UTILITY PROGRAMS : make_nwps_utils.sh =================="
-./make_nwps_utils.sh
-rc=$?
-if [[ $rc -ne 0 ]] ; then
-    echo "Fatal error in building nwps_utils."
-    echo "The log file is in sorc/nwps_utils.cd/nwps_utils_build.log"
-fi
-
+#echo "================== FOR UTILITY PROGRAMS : make_nwps_utils.sh =================="
+#./make_nwps_utils.sh
+#rc=$?
+#if [[ $rc -ne 0 ]] ; then
+#    echo "Fatal error in building nwps_utils."
+#    echo "The log file is in sorc/nwps_utils.cd/nwps_utils_build.log"
+#fi
+#
 echo "NWPS Build complete"
 exit 0
 
