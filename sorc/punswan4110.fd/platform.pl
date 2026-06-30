@@ -8,6 +8,9 @@ open(OUTFILE,">macros.inc");
 
 if ($os =~ /Linux/i) {
   my $compiler = getcmpl();
+
+  $compiler =~ s#.*/##;
+
   if ( $compiler eq "ifort" )
   {
     print OUTFILE "##############################################################################\n";
@@ -25,14 +28,32 @@ if ($os =~ /Linux/i) {
     print OUTFILE "FLAGS_SER =\n";
     print OUTFILE "FLAGS_OMP = -openmp\n";
     print OUTFILE "FLAGS_MPI =\n";
-    print OUTFILE "NETCDFROOT = \$(NETCDF) \n";
-    print OUTFILE "ifneq (\$(NETCDF),)\n";
-    print OUTFILE "  INCS_SER = -I\$(NETCDF_INCLUDES) \n";
-    print OUTFILE "  INCS_OMP = -I\$(NETCDF_INCLUDES) \n";
-    print OUTFILE "  INCS_MPI = -I\$(NETCDF_INCLUDES) \n";
-    print OUTFILE "  LIBS_SER = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
-    print OUTFILE "  LIBS_OMP = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
-    print OUTFILE "  LIBS_MPI = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
+#    print OUTFILE "NETCDFROOT = \$(NETCDF) \n";
+#    print OUTFILE "ifneq (\$(NETCDF),)\n";
+#    print OUTFILE "  INCS_SER = -I\$(NETCDF_INCLUDES) \n";
+#    print OUTFILE "  INCS_OMP = -I\$(NETCDF_INCLUDES) \n";
+#    print OUTFILE "  INCS_MPI = -I\$(NETCDF_INCLUDES) \n";
+#    print OUTFILE "  LIBS_SER = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
+#    print OUTFILE "  LIBS_OMP = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
+#    print OUTFILE "  LIBS_MPI = -L\$(NETCDF_LIBRARIES) -lnetcdff -lnetcdf -L\$(HDF5_LIBRARIES) -lhdf5_hl -lhdf5hl_fortran -lhdf5 -lhdf5_fortran \$(Z_LIB)\n";
+    print OUTFILE "NETCDF_C_HOME = \$(shell nc-config --prefix)\n";
+    print OUTFILE "NETCDF_F_HOME = \$(shell nf-config --prefix)\n";
+    print OUTFILE "HDF5HOME = \$(hdf5_ROOT)\n";
+    print OUTFILE "NETCDF_C_INCLUDES = -I\$(NETCDF_C_HOME)/include\n";
+    print OUTFILE "NETCDF_F_INCLUDES = -I\$(NETCDF_F_HOME)/include\n";
+    print OUTFILE "HDF5_INCLUDES = -I\$(HDF5HOME)/include\n";
+    print OUTFILE "NETCDF_C_LIBS = -L\$(NETCDF_C_HOME)/lib -lnetcdf\n";
+    print OUTFILE "NETCDF_F_LIBS = -L\$(NETCDF_F_HOME)/lib -lnetcdff\n";
+    print OUTFILE "HDF5_LIBS = -L\$(HDF5HOME)/lib -lhdf5_hl -lhdf5_hl_fortran -lhdf5 -lhdf5_fortran\n";
+
+    print OUTFILE "ifneq (\$(NETCDF_C_HOME),)\n";
+    print OUTFILE "  INCS_SER = \$(NETCDF_C_INCLUDES) \$(NETCDF_F_INCLUDES) \$(HDF5_INCLUDES)\n";
+    print OUTFILE "  INCS_OMP = \$(NETCDF_C_INCLUDES) \$(NETCDF_F_INCLUDES) \$(HDF5_INCLUDES)\n";
+    print OUTFILE "  INCS_MPI = \$(NETCDF_C_INCLUDES) \$(NETCDF_F_INCLUDES) \$(HDF5_INCLUDES)\n";
+    print OUTFILE "  LIBS_SER = \$(NETCDF_F_LIBS) \$(NETCDF_C_LIBS) \$(HDF5_LIBS) \$(Z_LIB)\n";
+    print OUTFILE "  LIBS_OMP = \$(NETCDF_F_LIBS) \$(NETCDF_C_LIBS) \$(HDF5_LIBS) \$(Z_LIB)\n";
+    print OUTFILE "  LIBS_MPI = \$(NETCDF_F_LIBS) \$(NETCDF_C_LIBS) \$(HDF5_LIBS) \$(Z_LIB)\n";
+
     print OUTFILE "  NCF_OBJS = nctablemd.o agioncmd.o swn_outnc.o\n";
     print OUTFILE "else\n";
     print OUTFILE "  INCS_SER =\n";
@@ -48,7 +69,7 @@ if ($os =~ /Linux/i) {
     print OUTFILE "EXTO = o\n";
     print OUTFILE "MAKE = make\n";
     print OUTFILE "RM = rm -f\n";
-    print OUTFILE "ifneq (\$(NETCDFROOT),)\n";
+    print OUTFILE "ifneq (\$(NETCDF_C_HOME),)\n";
     print OUTFILE "  swch = -unix -impi -netcdf\n";
     print OUTFILE "else\n";
     print OUTFILE "  swch = -unix -impi\n";
