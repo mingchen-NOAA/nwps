@@ -107,6 +107,28 @@ module load w3nco/2.4.1
 
 module list
 
+mkdir -p ${HOMEnwps}/build_wrappers
+
+cat > ${HOMEnwps}/build_wrappers/ftn <<'EOF'
+#!/bin/bash
+exec mpiifort "$@"
+EOF
+
+cat > ${HOMEnwps}/build_wrappers/cc <<'EOF'
+#!/bin/bash
+exec mpiicc "$@"
+EOF
+
+chmod +x ${HOMEnwps}/build_wrappers/ftn \
+          ${HOMEnwps}/build_wrappers/cc
+
+export PATH=${HOMEnwps}/build_wrappers:$PATH
+
+# Keep the original compiler names
+export COMP=ftn
+export COMPC=cc
+export C_COMP=cc
+
 mkdir -p ${HOMEnwps}/exec
 
 #FOR SWAN (REGULAR GRID)
