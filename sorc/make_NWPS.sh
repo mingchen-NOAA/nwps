@@ -28,21 +28,17 @@ fi
 
 #Fetching external fix and binary files from rzdm
 cd ${HOMEnwps}/sorc
-./get_externals.sh
+#./get_externals.sh
 
-export CONFIG_SITE=/tmp/dummy
+#export CONFIG_SITE=/tmp/dummy
 
-source ../versions/build.ver
+#source ../versions/build.ver
 
 # moved from build.ver
 #export optFlag="-O3"
 #export COMP=ftn
 #export COMPC=cc
 #export C_COMP=cc
-
-export COMP=ftn
-export COMPC=cc
-export C_COMP=cc
 
 # -----------------------------------------------------------
 # Optional Fortran runtime checking
@@ -85,12 +81,30 @@ else
   export FLAGS_MSC="-g -traceback"
 fi
 
+export nwps_ver=v1.5.0      # or whatever version you're building
+export ver=${nwps_ver}
+export lname=NWPS
 
-#module purge
-module reset
+module purge
+#module reset
 #source ../modulefiles/build_nwps.modules
-module use ../modulefiles
-module load build_nwps.modules.lua
+#module use ../modulefiles
+#module load build_nwps.modules.lua
+
+module use /contrib/spack-stack/spack-stack-1.9.2/envs/ue-oneapi-2024.2.1/install/modulefiles/Core
+module use /contrib/spack-stack/spack-stack-1.9.2/envs/ue-oneapi-2024.2.1/install/modulefiles/intel-oneapi-mpi/2021.13-haww6b3/gcc/12.4.0
+
+module load stack-oneapi/2024.2.1
+module load stack-intel-oneapi-mpi/2021.13
+module load hdf5/1.14.3
+module load netcdf-c/4.9.2
+module load netcdf-fortran/4.6.1
+module load jasper/2.0.32
+module load libpng/1.6.37
+module load g2/3.5.1
+module load g2c/2.1.0
+module load w3nco/2.4.1
+
 module list
 
 mkdir -p ${HOMEnwps}/exec
